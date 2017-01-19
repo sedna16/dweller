@@ -70,7 +70,7 @@ class routeprovider {
 		return $s;
 	}
 
-	/*
+	/* 
 	* searches for a match for the @param
 	* @param - string, for uri
 	* @return - returns either false or an array('template'=>'file','controller'=>'file');

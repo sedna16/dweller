@@ -1,11 +1,5 @@
 <?php
 
-/*
-*
-* Needs to change a lot of things, but still working
-*
-*/
-
 namespace dweller;
 
 use dweller\processors\helper as helper;
@@ -19,9 +13,9 @@ class querybuilder {
 	public $result;
 
 	/*
-	*
-	*
-	*
+	* construct for identifying what table will be used
+	* @param - string, table name
+	* no return
 	*
 	*
 	*/
@@ -30,9 +24,9 @@ class querybuilder {
 	}
 
 	/*
-	*
-	*
-	*
+	* function to setup 'select' as the main query
+	* @param - string, fields wanted to be selected, commonly used is '*'
+	* @return - this, for method chaining
 	*
 	*
 	*/
@@ -42,9 +36,9 @@ class querybuilder {
 	}
 
 	/*
-	*
-	*
-	*
+	* function to identify the type of values to be used
+	* @param - anything
+	* @return - the type of variable used
 	*
 	*
 	*/
@@ -54,7 +48,7 @@ class querybuilder {
 
 		if($type == 'integer') { $return = 'i'; }
 		if($type == 'boolean') { $return = 'b'; }
-		if($type == 'a') { $return = 'a'; }
+		if($type == 'array') { $return = 'a'; }
 		if($type == 'string') { $return = 's'; }
 		if($type == 'double') { $return = 'd'; }
 		if($type == 'object') { $return = 'o'; }
@@ -65,10 +59,10 @@ class querybuilder {
 	}
 
 	/*
-	*
-	*
-	*
-	*
+	* function to add the type and value to the class variable
+	* @param - string, variable type
+	* @param2 - anythingy, the value
+	* no return
 	*
 	*/
 	private function setothers($type,$value) {
@@ -77,9 +71,9 @@ class querybuilder {
 	}
 
 	/*
-	*
-	*
-	*
+	* function to setup the where clause in an sql statement 
+	* @param - array, array keys are the columns and array values are the sql values which will be represented by a '?'
+	* @return - this, for method chaining
 	*
 	*
 	*/
@@ -110,9 +104,9 @@ class querybuilder {
 	}
 
 	/*
-	*
-	*
-	*
+	* function to setup the where not clause in an sql statement 
+	* @param - array, array keys are the columns and array values are the sql values which will be represented by a '?'
+	* @return - this, for method chaining
 	*
 	*
 	*/
@@ -143,10 +137,10 @@ class querybuilder {
 	}
 
 	/*
-	*
-	*
-	*
-	*
+	* function to insert an 'AND clause in the sql statement'
+	* @param - string, column
+	* @param2 - anything, value
+	* @return - this, for method chaining
 	*
 	*/
 	function more($c,$v) {
@@ -155,9 +149,9 @@ class querybuilder {
 	}
 
 	/*
-	*
-	*
-	*
+	* function to setup the like clause in an sql statement 
+	* @param - array, array keys are the columns and array values are the sql values which will be represented by a '?'
+	* @return - this, for method chaining
 	*
 	*
 	*/
@@ -188,9 +182,9 @@ class querybuilder {
 	}
 
 	/*
-	*
-	*
-	*
+	* function to setup the like not clause in an sql statement 
+	* @param - array, array keys are the columns and array values are the sql values which will be represented by a '?'
+	* @return - this, for method chaining
 	*
 	*
 	*/
@@ -221,9 +215,9 @@ class querybuilder {
 	}
 
 	/*
-	*
-	*
-	*
+	* function to setup order to which the rows will appear
+	* @param - array, array key is the column and array values can either be ASC or DESC
+	* @return - this, for method chaining
 	*
 	*
 	*/
@@ -240,9 +234,9 @@ class querybuilder {
 	}
 
 	/*
-	*
-	*
-	*
+	* function to setup the oldest row to show up first
+	* @param - string, column
+	* @return - this, for method chaining
 	*
 	*
 	*/
@@ -252,9 +246,9 @@ class querybuilder {
 	}
 
 	/*
-	*
-	*
-	*
+	* function to setup the latest row to show up first
+	* @param - string, column
+	* @return - this, for method chaining
 	*
 	*
 	*/
@@ -264,10 +258,10 @@ class querybuilder {
 	}
 
 	/*
-	*
-	*
-	*
-	*
+	* function to limit the results to a chunk
+	* @param - int, number of row you want to show
+	* @param2 - int, the offset - where will the count start
+	* @return - this, for method chaining
 	*
 	*/
 	function chunk($num,$page = 0) {
@@ -276,7 +270,7 @@ class querybuilder {
 	}
 
 	/*
-	*
+	* (pending decision) to delete or not to delete
 	*
 	*
 	*
@@ -288,7 +282,7 @@ class querybuilder {
 	}
 
 	/*
-	*
+	* (pending decision) to delete or not to delete
 	*
 	*
 	*
@@ -300,9 +294,9 @@ class querybuilder {
 	}
 
 	/*
-	*
-	*
-	*
+	* function to setup 'insert' as the main query
+	* @param - array, array keys are the columns and the array value are the insert values
+	* @return - this, for method chaining
 	*
 	*
 	*/
@@ -327,9 +321,9 @@ class querybuilder {
 	}
 
 	/*
-	*
-	*
-	*
+	* function to setup 'update' as the main query
+	* @param - array, array keys are the columns and the array value are the insert values
+	* @return - this, for method chaining
 	*
 	*
 	*/
@@ -350,9 +344,9 @@ class querybuilder {
 	}
 
 	/*
-	*
-	*
-	*
+	* function to setup 'delete' as the main query
+	* no param
+	* @return - this, for method chaining
 	*
 	*
 	*/
@@ -363,9 +357,9 @@ class querybuilder {
 	}
 
 	/*
-	*
-	*
-	*
+	* end of the chain - function to retrieve the statement, the variable types and the values
+	* no param
+	* @return - sql statement, variable type, and values
 	*
 	*
 	*/

@@ -1,24 +1,17 @@
 <?php
 
-/*
-*
-*
-* subject for changes, asap
-*
-*
-*/
-
 namespace dweller\router;
+
+use dweller\router as router;
 
 class routeprovider {
 
 	static protected $routes;
 	static protected $fallback;
 	static private $wildcards = [
-		//'{num}' 			=> '(.*[0-7])', 
-		'{num}' 			=> '([0-9]+)', // digit only, single or more
-		'{string}' 			=> '(.*\S\D)', // word only
-		'{varchar}' 		=> '(.*\S)' // alpha and num
+		'{id}' 			=> '([0-9]+)', // digit only, single or more
+		'{name}' 		=> '(.*\S\D)', // word only
+		'{any}' 		=> '(.*\S)' // alpha and num
 	];
 
 	/*
@@ -70,7 +63,11 @@ class routeprovider {
 		return $s;
 	}
 
-	/* 
+	private function matchRegex($s) {
+
+	}
+
+	/*
 	* searches for a match for the @param
 	* @param - string, for uri
 	* @return - returns either false or an array('template'=>'file','controller'=>'file');
@@ -81,15 +78,21 @@ class routeprovider {
 
 		$matchuri = false;
 		$uri = '/' . $uri;
+		$uriArray = explode('/', $uri);
+		array_shift($uriArray);
+		if(!isset($uriArray[0]) || $uriArray[0] == '') { $uriArray[0] = '/'; }
+		$uriCount = count($uriArray);
 
-		if(array_key_exists($uri, self::$routes)) {
-			$matchuri['template'] = self::$routes[$uri]['template'];
-			$matchuri['controller'] = self::$routes[$uri]['controller'];
-			$matchuri['pattern'] = $uri;
-		}
-		else {
-			array_shift(self::$routes);
-			foreach (self::$routes as $pattern => $callbacks) {
+		foreach (self::$routes as $pattern => $callbacks) {
+
+			$matchCount = 0;
+
+			$patternArray = explode('/',$pattern);
+			array_shift($patternArray);
+			if(!isset($patternArray[0]) || $patternArray[0] == '') { $patternArray[0] = '/'; }
+			$patternCount = count($patternArray);
+
+			if($uriCount == $patternCount) {
 
 				$regex = self::getregex($pattern);
 				$preg = preg_match($regex, $uri, $match);
@@ -97,9 +100,13 @@ class routeprovider {
 				if($preg) {
 
 					if($match[0] == $uri) {
+						
 						$matchuri['template'] = self::$routes[$pattern]['template'];
 						$matchuri['controller'] = self::$routes[$pattern]['controller'];
 						$matchuri['pattern'] = $pattern;
+					}
+					else {
+						$matchuri = false;
 					}
 				}
 			}
